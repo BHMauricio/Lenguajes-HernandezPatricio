@@ -168,7 +168,8 @@ public class P1 extends javax.swing.JFrame {
             new P2().setVisible(true);
             dispose();
           if(respuesta){
-            acumulador++;         
+            acumulador++; 
+            respuesta=false;
             if(acumulador==1){
                 acumulador++;
             }

@@ -11,6 +11,8 @@ package proyecto;
  */
 public class Inicio extends javax.swing.JFrame {
 
+    static String contador;
+
     /**
      * Creates new form Inicio
      */

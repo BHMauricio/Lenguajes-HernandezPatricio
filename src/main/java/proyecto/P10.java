@@ -5,17 +5,52 @@
  */
 package proyecto;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+
 /**
  *
- * @author T-107
+ * @author Bryan Mauricio Hernandez Patricio 
  */
 public class P10 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form P10
-     */
+    private boolean respuesta = false;
+    private static int acumulador=0;
+    
+    Thread t1;
+    private int seg = 30;
+    private boolean ciclo = true;
+    
     public P10() {
         initComponents();
+        setBounds(500, 300, 500, 300);
+        
+        t1 =  new Thread(new Runnable(){
+            
+            public void run(){               
+                while(ciclo){
+                   seg--;
+                 try{  
+                   if(seg<=9){                      
+                       relojito.setText("0:0" + seg);
+                       if(seg==0){
+                           P2 p2 = new P2();
+                           p2.setVisible(true);
+                           dispose();
+                           ciclo=false;
+                           JOptionPane.showMessageDialog(rootPane, "Tiempo agotado tu calificación es: " + Inicio.contador, "Tiempo!!", JOptionPane.INFORMATION_MESSAGE);
+                       }
+                   }else{
+                       relojito.setText("0:" + seg);
+                   }                 
+                   
+                t1.sleep(1000);
+            }catch(InterruptedException ex){}
+           
+          }}});
+        t1.start();
+        boton1.enable(false);
+        setTitle ("Pregunta 10");
     }
 
     /**
@@ -53,6 +88,11 @@ public class P10 extends javax.swing.JFrame {
         });
 
         jRadioButton2.setText("No");
+        jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton2ActionPerformed(evt);
+            }
+        });
 
         jRadioButton3.setText("No se ");
 
@@ -114,9 +154,22 @@ public class P10 extends javax.swing.JFrame {
         boton1.enable(true);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
+
+    }//GEN-LAST:event_jRadioButton2ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(this,"Tuviste : "+ Inicio.contador +" aciertos", "Puntaje total ", JOptionPane.INFORMATION_MESSAGE);
+        dispose();
+       ciclo = false;
+        if(respuesta){
+        Inicio.contador++;
+            respuesta = false;
+            if(Inicio.contador==1){
+              Inicio.contador++;
+          }
+        }
+        }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
