@@ -10,12 +10,41 @@ package proyecto;
  * @author T-107
  */
 public class P3 extends javax.swing.JFrame {
-
-    /**
-     * Creates new form P3
-     */
+    private boolean respuesta = false;
+    private static int acumulador=0;
+    
+    Thread t1;
+    private int seg = 30;
+    private boolean ciclo = true;
+    
     public P3() {
         initComponents();
+    setBounds(500, 300, 500, 300);
+        
+        t1 =  new Thread(new Runnable(){
+            
+            public void run(){               
+                while(ciclo){
+                   seg--;
+                 try{  
+                   if(seg<=9){                      
+                       relojito.setText("0:0" + seg);
+                       if(seg==0){
+                           P4 p4 = new P4();
+                           p4.setVisible(true);
+                           dispose();
+                           ciclo=false;
+                       }
+                   }else{
+                       relojito.setText("0:" + seg);
+                   }                 
+                   
+                t1.sleep(1000);
+            }catch(InterruptedException ex){}
+           
+          }}});
+        t1.start();
+        boton1.enable(false);
     }
 
     /**
@@ -28,26 +57,47 @@ public class P3 extends javax.swing.JFrame {
     private void initComponents() {
 
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         jLabel2 = new javax.swing.JLabel();
         jRadioButton5 = new javax.swing.JRadioButton();
         jRadioButton6 = new javax.swing.JRadioButton();
         jRadioButton7 = new javax.swing.JRadioButton();
         jRadioButton8 = new javax.swing.JRadioButton();
-        jButton2 = new javax.swing.JButton();
+        boton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        relojito = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel2.setText("3.¿Cual crees que es el mejor metodo anticonceptivo?");
 
-        jRadioButton5.setText("jRadioButton5");
+        buttonGroup2.add(jRadioButton5);
+        jRadioButton5.setText("Preservativos");
 
-        jRadioButton6.setText("jRadioButton6");
+        buttonGroup2.add(jRadioButton6);
+        jRadioButton6.setText("Inyecciones");
 
-        jRadioButton7.setText("jRadioButton7");
+        buttonGroup2.add(jRadioButton7);
+        jRadioButton7.setText("Pastillas");
 
-        jRadioButton8.setText("jRadioButton8");
+        buttonGroup2.add(jRadioButton8);
+        jRadioButton8.setText("Dispositivos");
+        jRadioButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton8ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("jButton2");
+        boton1.setText("OK");
+        boton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Reloj");
+
+        relojito.setText("relojito");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -56,20 +106,24 @@ public class P3 extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jRadioButton6)
                             .addComponent(jRadioButton5)
                             .addComponent(jRadioButton7)
-                            .addComponent(jRadioButton8)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(42, 42, 42)
-                        .addComponent(jLabel2)))
+                            .addComponent(jRadioButton8))))
                 .addContainerGap(100, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(84, 84, 84))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(relojito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(boton1)
+                .addGap(38, 38, 38))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,13 +138,34 @@ public class P3 extends javax.swing.JFrame {
                 .addComponent(jRadioButton7)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton8)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(relojito))
+                    .addComponent(boton1))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton1ActionPerformed
+                new P4().setVisible(true);
+            dispose();
+          if(respuesta){
+            acumulador++;         
+            if(acumulador==1){
+                acumulador++;
+            }
+        }
+    }//GEN-LAST:event_boton1ActionPerformed
+
+    private void jRadioButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton8ActionPerformed
+         respuesta = true;
+        boton1.enable(true);                           
+    }//GEN-LAST:event_jRadioButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,12 +203,15 @@ public class P3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton1;
     private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton jRadioButton5;
     private javax.swing.JRadioButton jRadioButton6;
     private javax.swing.JRadioButton jRadioButton7;
     private javax.swing.JRadioButton jRadioButton8;
+    private javax.swing.JLabel relojito;
     // End of variables declaration//GEN-END:variables
 }
