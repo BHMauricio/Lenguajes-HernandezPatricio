@@ -19,7 +19,6 @@ public class P9 extends javax.swing.JFrame {
     
     public P9() {
         initComponents();
-        initComponents();
         setBounds(500, 300, 530, 300);
         
         t1 =  new Thread(new Runnable(){

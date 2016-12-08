@@ -20,7 +20,6 @@ public class P8 extends javax.swing.JFrame {
     
     public P8() {
         initComponents();
-        initComponents();
         setBounds(500, 300, 500, 300);
         
         t1 =  new Thread(new Runnable(){
